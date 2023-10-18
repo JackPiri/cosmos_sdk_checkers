@@ -34,9 +34,9 @@ func TestCanGetAddressBlack(t *testing.T) {
 }
 
 func TestCanGetAddressRed(t *testing.T) {
-	aliceAddress, err1 := sdk.AccAddressFromBech32(alice)
+	bobAddress, err1 := sdk.AccAddressFromBech32(bob)
 	red, err2 := GetStoredGame1().GetRedAddress()
-	require.Equal(t, aliceAddress, red)
+	require.Equal(t, bobAddress, red)
 	require.Nil(t, err2)
 	require.Nil(t, err1)
 }
@@ -54,11 +54,11 @@ func TestGetAddressWrongBlack(t *testing.T) {
 
 func TestGetAddressWrongRed(t *testing.T) {
 	storedGame := GetStoredGame1()
-	storedGame.Red = "cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d4" // Bad last digit
+	storedGame.Red = "cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8h" // Bad last digit
 	red, err := storedGame.GetRedAddress()
 	require.Nil(t, red)
 	require.EqualError(t,
 		err,
-		"black address is invalid: cosmos1jmjfq0tplp9tmx4v9uemw72y4d2wa5nr3xn9d4: decoding bech32 failed: invalid checksum (expected 3xn9d3 got 3xn9d4)")
+		"red address is invalid: cosmos1xyxs3skf3f4jfqeuv89yyaqvjc6lffavxqhc8h: decoding bech32 failed: invalid checksum (expected xqhc8g got xqhc8h)")
 	require.EqualError(t, storedGame.Validate(), err.Error())
 }
