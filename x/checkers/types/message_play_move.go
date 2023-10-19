@@ -1,6 +1,9 @@
 package types
 
 import (
+	"strconv"
+
+	"github.com/alice/checkers/x/checkers/rules"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -46,5 +49,19 @@ func (msg *MsgPlayMove) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+	gameIndex, err := strconv.ParseUint(msg.GameIndex, 10, 64)
+	if err != nil {
+		return sdkerrors.Wrapf(ErrInvalidGameIndex, "not parseable (%s)", err)
+	}
+	if gameIndex < DefaultIndex {
+		return sdkerrors.Wrapf(ErrInvalidGameIndex, "value too low (%d)", msg.GameIndex)
+	}
+	if msg.FromX >= rules.BOARD_DIM || msg.FromY >= rules.BOARD_DIM ||
+		msg.ToX >= rules.BOARD_DIM || msg.ToY >= rules.BOARD_DIM ||
+		(msg.FromX+msg.FromY)%2 == 0 ||
+		(msg.ToX+msg.ToY)%2 == 0 { // e.g. (0,0) invalid
+		return sdkerrors.Wrapf(ErrInvalidPiecePosition, "out of board or out of playable cells")
+	}
+
 	return nil
 }

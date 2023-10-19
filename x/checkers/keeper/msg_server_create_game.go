@@ -36,7 +36,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 
 	systemInfo.NextId++
 	k.Keeper.SetSystemInfo(ctx, systemInfo)
-	// DONE: Handling the message (start)
+	// DONE: Handling the message (end)
 
 	_ = ctx
 
