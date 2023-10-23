@@ -1,0 +1,11 @@
+syntax = "proto3";
+package checkers.checkers;
+
+option go_package = "github.com/alice/checkers/x/checkers/types";
+
+message PlayerInfo {
+  string account = 1; 
+  uint64 totalGames = 2; 
+  
+}
+

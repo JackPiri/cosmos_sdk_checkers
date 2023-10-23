@@ -34,6 +34,20 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 	}
 	k.Keeper.SetStoredGame(ctx, newStoredGame)
 
+	playersName := []string{msg.Black, msg.Red}
+	for _, playerName := range playersName {
+		player, found := k.Keeper.GetPlayerInfo(ctx, playerName)
+		if !found {
+			player = types.PlayerInfo{
+				Account:    playerName,
+				TotalGames: 1,
+			}
+		} else {
+			player.TotalGames += 1
+		}
+		k.Keeper.SetPlayerInfo(ctx, player)
+	}
+
 	systemInfo.NextId++
 	k.Keeper.SetSystemInfo(ctx, systemInfo)
 	// DONE: Handling the message (end)

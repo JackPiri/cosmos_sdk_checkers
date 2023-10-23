@@ -8,6 +8,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "checkers/checkers/params.proto";
 import "checkers/checkers/system_info.proto";
 import "checkers/checkers/stored_game.proto";
+import "checkers/checkers/player_info.proto";
 
 option go_package = "github.com/alice/checkers/x/checkers/types";
 
@@ -33,6 +34,16 @@ service Query {
   }
   rpc StoredGameAll (QueryAllStoredGameRequest) returns (QueryAllStoredGameResponse) {
     option (google.api.http).get = "/alice/checkers/checkers/stored_game";
+  
+  }
+  
+  // Queries a list of PlayerInfo items.
+  rpc PlayerInfo    (QueryGetPlayerInfoRequest) returns (QueryGetPlayerInfoResponse) {
+    option (google.api.http).get = "/alice/checkers/checkers/player_info/{account}";
+  
+  }
+  rpc PlayerInfoAll (QueryAllPlayerInfoRequest) returns (QueryAllPlayerInfoResponse) {
+    option (google.api.http).get = "/alice/checkers/checkers/player_info";
   
   }
 }
@@ -66,6 +77,23 @@ message QueryAllStoredGameRequest {
 
 message QueryAllStoredGameResponse {
   repeated StoredGame                             storedGame = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetPlayerInfoRequest {
+  string account = 1;
+}
+
+message QueryGetPlayerInfoResponse {
+  PlayerInfo playerInfo = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllPlayerInfoRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPlayerInfoResponse {
+  repeated PlayerInfo                             playerInfo = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
