@@ -46,6 +46,12 @@ service Query {
     option (google.api.http).get = "/alice/checkers/checkers/player_info";
   
   }
+  
+  // Queries a list of PlayerInfoAllWithNotStartedGames items.
+  rpc PlayerInfoAllWithNotStartedGames (QueryPlayerInfoAllWithNotStartedGamesRequest) returns (QueryPlayerInfoAllWithNotStartedGamesResponse) {
+    option (google.api.http).get = "/alice/checkers/checkers/player_info_all_with_not_started_games";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -95,5 +101,11 @@ message QueryAllPlayerInfoRequest {
 message QueryAllPlayerInfoResponse {
   repeated PlayerInfo                             playerInfo = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryPlayerInfoAllWithNotStartedGamesRequest {}
+
+message QueryPlayerInfoAllWithNotStartedGamesResponse {
+  repeated PlayerInfo playerInfoAllWithNotStartedGames = 1 [(gogoproto.nullable) = false];
 }
 
