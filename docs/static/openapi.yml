@@ -218,13 +218,15 @@ paths:
             type: object
             properties:
               playerInfoAllWithNotStartedGames:
-                type: object
-                properties:
-                  account:
-                    type: string
-                  totalGames:
-                    type: string
-                    format: uint64
+                type: array
+                items:
+                  type: object
+                  properties:
+                    account:
+                      type: string
+                    totalGames:
+                      type: string
+                      format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -47049,13 +47051,15 @@ definitions:
     type: object
     properties:
       playerInfoAllWithNotStartedGames:
-        type: object
-        properties:
-          account:
-            type: string
-          totalGames:
-            type: string
-            format: uint64
+        type: array
+        items:
+          type: object
+          properties:
+            account:
+              type: string
+            totalGames:
+              type: string
+              format: uint64
   checkers.checkers.StoredGame:
     type: object
     properties:

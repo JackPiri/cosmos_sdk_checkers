@@ -18,7 +18,7 @@ func (k Keeper) PlayerInfoAllWithNotStartedGames(goCtx context.Context, req *typ
 
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	// TODO: Process the query
+	// DONE: Process the query (start)
 	var notStartedGameBoard = rules.New().String()
 	var storedGames []types.StoredGame = k.GetAllStoredGame((ctx))
 	var notStartedStoredGames []types.StoredGame
@@ -38,6 +38,7 @@ func (k Keeper) PlayerInfoAllWithNotStartedGames(goCtx context.Context, req *typ
 			}
 		}
 	}
+	// DONE: Process the query (end)
 
 	return &types.QueryPlayerInfoAllWithNotStartedGamesResponse{PlayerInfoAllWithNotStartedGames: filteredPlayersInfo}, nil
 }

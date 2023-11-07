@@ -47,9 +47,7 @@ func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*typ
 	storedGame.Turn = rules.PieceStrings[game.Turn]
 	k.Keeper.SetStoredGame(ctx, storedGame)
 	// handle move itself is valid with respect to current board
-
 	// DONE: Handling the message (end)
-	_ = ctx
 
 	return &types.MsgPlayMoveResponse{
 		CapturedX: int32(captured.X),
